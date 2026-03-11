@@ -30,14 +30,12 @@
             border: 1px solid rgba(255, 255, 255, 0.05); 
         }
 
-        /* AJUSTE CRÍTICO: Título que nunca se rompe y escala perfectamente */
         .main-title { 
             font-weight: 900; 
             letter-spacing: -0.05em; 
             line-height: 0.9; 
             white-space: nowrap;
             display: inline-block;
-            /* clamp(min, preferido, max) asegura que sea responsivo sin romperse */
             font-size: clamp(3rem, 13vw, 11rem);
         }
 
@@ -89,6 +87,11 @@
         @keyframes rotation { 
             0% { transform: rotate(0deg); } 
             100% { transform: rotate(360deg); } 
+        }
+
+        /* Ajuste de fuente para formularios para evitar problemas de caracteres */
+        input, select, textarea, button {
+            font-family: 'Outfit', sans-serif !important;
         }
     </style>
 </head>
@@ -148,43 +151,43 @@
         </div>
     </section>
 
-    <!-- Modal de Administración -->
+    <!-- Modal de Administracion -->
     <div id="adminModal">
         <div class="glass max-w-xl w-full p-6 sm:p-12 rounded-3xl sm:rounded-[3.5rem] border-white/10 relative mx-4 max-h-[92vh] overflow-y-auto no-scrollbar shadow-3xl">
             <button onclick="window.toggleAdminModal()" class="absolute top-6 right-6 sm:top-10 sm:right-10 text-white/20 hover:text-white transition-colors">
                 <i data-lucide="x-circle" class="w-7 h-7 sm:w-9 sm:h-9"></i>
             </button>
             <div class="text-center mb-8 sm:mb-10">
-                <h3 class="text-2xl sm:text-3xl font-black tracking-tighter uppercase mb-2">AÑADIR <span class="text-blue-500">RECURSO</span></h3>
-                <p class="text-white/30 text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.3em]">Gestión de Enlaces</p>
+                <h3 class="text-2xl sm:text-3xl font-black tracking-tighter uppercase mb-2">AGREGAR <span class="text-blue-500">RECURSO</span></h3>
+                <p class="text-white/30 text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.3em]">Gestion de Enlaces</p>
             </div>
             <form id="uploadForm" class="space-y-3 sm:space-y-4">
-                <input type="text" id="bookTitle" placeholder="TÍTULO" class="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-7 outline-none focus:border-blue-500 uppercase text-[10px] font-bold transition-all" required>
+                <input type="text" id="bookTitle" placeholder="TITULO" class="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-7 outline-none focus:border-blue-500 uppercase text-[10px] font-bold transition-all" required>
                 <select id="bookCategory" class="w-full bg-slate-900 border border-white/10 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-7 outline-none text-[10px] font-black uppercase cursor-pointer focus:border-blue-500 transition-all" required>
-                    <option value="" disabled selected>SELECCIONAR CATEGORÍA</option>
-                    <option value="ADMINISTRACION">ADMINISTRACIÓN</option>
-                    <option value="CRISTOLOGIA">CRISTOLOGÍA</option>
+                    <option value="" disabled selected>SELECCIONAR CATEGORIA</option>
+                    <option value="ADMINISTRACION">ADMINISTRACION</option>
+                    <option value="CRISTOLOGIA">CRISTOLOGIA</option>
                     <option value="DISCIPULADO">DISCIPULADO</option>
-                    <option value="EDUCACIÓN CRISTIANA">EDUCACIÓN CRISTIANA</option>
-                    <option value="ESCATOLOGIA">ESCATOLOGÍA</option>
-                    <option value="ESTUDIOS BÍBLICOS">ESTUDIOS BÍBLICOS</option>
+                    <option value="EDUCACION CRISTIANA">EDUCACION CRISTIANA</option>
+                    <option value="ESCATOLOGIA">ESCATOLOGIA</option>
+                    <option value="ESTUDIOS BIBLICOS">ESTUDIOS BIBLICOS</option>
+                    <option value="EVANGELISMO">EVANGELISMO</option>
                     <option value="FINANZAS">FINANZAS</option>
-                    <option value="GEOGRAFIA">GEOGRAFÍA</option>
+                    <option value="GEOGRAFIA">GEOGRAFIA</option>
                     <option value="HISTORIA">HISTORIA</option>
                     <option value="LIDERAZGO">LIDERAZGO</option>
                     <option value="MANUALES">MANUALES Y REGLAMENTOS</option>
-                    <option value="NEUMOLOGIA">NEUMOLOGÍA</option>
-                    <option value="PSICOLOGIA">PSICOLOGÍA</option>
-                    <option value="SOCIOLOGIA">SOCIOLOGÍA</option>
-                    <option value="TEOLOGÍA">TEOLOGÍA</option>
-                    <option value="EVANGELISMO">EVANGELISMO</option>
+                    <option value="NEUMOLOGIA">NEUMOLOGIA</option>
+                    <option value="PSICOLOGIA">PSICOLOGIA</option>
+                    <option value="SOCIOLOGIA">SOCIOLOGIA</option>
+                    <option value="TEOLOGIA">TEOLOGIA</option>
                 </select>
-                <textarea id="bookDesc" placeholder="DESCRIPCIÓN..." class="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-7 h-20 sm:h-24 outline-none text-[10px] uppercase focus:border-blue-500 transition-all" required></textarea>
+                <textarea id="bookDesc" placeholder="DESCRIPCION..." class="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-7 h-20 sm:h-24 outline-none text-[10px] uppercase focus:border-blue-500 transition-all" required></textarea>
                 <div class="space-y-2 pt-4 border-t border-white/5">
                     <p class="text-[8px] font-black text-blue-500 tracking-[0.2em] uppercase">Enlaces Directos (Google Drive)</p>
                     <input type="url" id="bookUrl" placeholder="LINK PDF DRIVE (Compartido)" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-5 outline-none focus:border-blue-500 text-[10px]" required>
                     <input type="url" id="bookCoverUrl" placeholder="LINK PORTADA IMAGEN DRIVE" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-5 outline-none focus:border-blue-500 text-[10px]" required>
-                    <p class="text-[7px] text-white/20 italic uppercase">* Asegúrate de que los archivos tengan permisos para "Cualquier persona con el enlace".</p>
+                    <p class="text-[7px] text-white/20 italic uppercase">* Asegurate de que los archivos tengan permisos para "Cualquier persona con el enlace".</p>
                 </div>
                 <button type="submit" id="submitBtn" class="w-full bg-blue-600 py-4 sm:py-6 mt-4 rounded-xl sm:rounded-2xl font-black uppercase text-[11px] sm:text-[12px] tracking-[0.2em] hover:bg-blue-500 transition-all shadow-xl">
                     GUARDAR RECURSO
@@ -193,13 +196,13 @@
         </div>
     </div>
 
-    <!-- Script de Lógica y Firebase -->
+    <!-- Script de Logica y Firebase -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, query, orderBy, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Configuración de tu proyecto Firebase
+        // Configuracion de tu proyecto Firebase
         const firebaseConfig = {
           apiKey: "AIzaSyBN0eWd2_oeuZ00xnFgXdW4deVCStAFPkc",
           authDomain: "biblionaz.firebaseapp.com",
