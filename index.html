@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>IDN Distrito Sur Fronterizo | Biblioteca Virtual</title>
-    <!-- Librerías Externas -->
+    <!-- Librerias Externas -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -120,10 +120,10 @@
         </div>
     </nav>
 
-    <header class="relative min-h-[50vh] sm:min-h-[70vh] flex flex-col items-center justify-center gradient-bg px-4 text-center overflow-hidden pt-36 sm:pt-24">
+    <header class="relative min-h-[60vh] sm:min-h-[85vh] flex flex-col items-center justify-center gradient-bg px-4 text-center overflow-hidden pt-36 sm:pt-48">
         <div class="absolute top-1/4 left-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-blue-600/10 rounded-full blur-[80px] sm:blur-[120px] animate-pulse"></div>
         <div class="relative z-10 space-y-4 sm:space-y-6 w-full max-w-7xl">
-            <!-- Título Principal -->
+            <!-- Titulo Principal -->
             <h1 class="main-title text-white text-glow uppercase select-none px-2">
                  BIBLIO<span class="text-blue-600">NAZ</span>
             </h1>
@@ -140,7 +140,6 @@
     <section id="catalogo" class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-24">
         <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-10 sm:mb-16 gap-6 sm:gap-8">
             <div class="space-y-2 sm:space-y-3">
-                <!-- Cambio solicitado aquí -->
                 <span class="text-blue-500 font-black text-[9px] sm:text-[10px] tracking-[0.4em] sm:tracking-[0.5em] uppercase block">Explorar</span>
                 <h3 class="text-3xl sm:text-5xl font-black tracking-tighter uppercase leading-none">BIBLIOTECA <span class="text-white/10">VIRTUAL</span></h3>
             </div>
@@ -155,7 +154,7 @@
         </div>
     </section>
 
-    <!-- Modal de Administración -->
+    <!-- Modal de Administracion -->
     <div id="adminModal">
         <div class="glass max-w-xl w-full p-6 sm:p-12 rounded-3xl sm:rounded-[3.5rem] border-white/10 relative mx-4 max-h-[92vh] overflow-y-auto no-scrollbar shadow-3xl">
             <button onclick="window.toggleAdminModal()" class="absolute top-6 right-6 sm:top-10 sm:right-10 text-white/20 hover:text-white transition-colors">
@@ -163,30 +162,30 @@
             </button>
             <div class="text-center mb-8 sm:mb-10">
                 <h3 class="text-2xl sm:text-3xl font-black tracking-tighter uppercase mb-2">AGREGAR <span class="text-blue-500">RECURSO</span></h3>
-                <p class="text-white/30 text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.3em]">Gestión de Enlaces</p>
+                <p class="text-white/30 text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.3em]">Gestion de Enlaces</p>
             </div>
             <form id="uploadForm" class="space-y-3 sm:space-y-4">
-                <input type="text" id="bookTitle" placeholder="TÍTULO" class="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-7 outline-none focus:border-blue-500 uppercase text-[10px] font-bold transition-all" required>
+                <input type="text" id="bookTitle" placeholder="TITULO" class="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-7 outline-none focus:border-blue-500 uppercase text-[10px] font-bold transition-all" required>
                 <select id="bookCategory" class="w-full bg-slate-900 border border-white/10 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-7 outline-none text-[10px] font-black uppercase cursor-pointer focus:border-blue-500 transition-all" required>
-                    <option value="" disabled selected>SELECCIONAR CATEGORÍA</option>
-                    <option value="ADMINISTRACIÓN">ADMINISTRACIÓN</option>
-                    <option value="CRISTOLOGÍA">CRISTOLOGÍA</option>
+                    <option value="" disabled selected>SELECCIONAR CATEGORIA</option>
+                    <option value="ADMINISTRACION">ADMINISTRACION</option>
+                    <option value="CRISTOLOGIA">CRISTOLOGIA</option>
                     <option value="DISCIPULADO">DISCIPULADO</option>
-                    <option value="EDUCACIÓN CRISTIANA">EDUCACIÓN CRISTIANA</option>
-                    <option value="ESCATOLOGÍA">ESCATOLOGÍA</option>
-                    <option value="ESTUDIOS BÍBLICOS">ESTUDIOS BÍBLICOS</option>
+                    <option value="EDUCACION CRISTIANA">EDUCACION CRISTIANA</option>
+                    <option value="ESCATOLOGIA">ESCATOLOGIA</option>
+                    <option value="ESTUDIOS BIBLICOS">ESTUDIOS BIBLICOS</option>
                     <option value="EVANGELISMO">EVANGELISMO</option>
                     <option value="FINANZAS">FINANZAS</option>
-                    <option value="GEOGRAFÍA">GEOGRAFÍA</option>
+                    <option value="GEOGRAFIA">GEOGRAFIA</option>
                     <option value="HISTORIA">HISTORIA</option>
                     <option value="LIDERAZGO">LIDERAZGO</option>
                     <option value="MANUALES">MANUALES Y REGLAMENTOS</option>
-                    <option value="NEUMOLOGÍA">NEUMOLOGÍA</option>
-                    <option value="PSICOLOGÍA">PSICOLOGÍA</option>
-                    <option value="SOCIOLOGÍA">SOCIOLOGÍA</option>
-                    <option value="TEOLOGÍA">TEOLOGÍA</option>
+                    <option value="NEUMOLOGIA">NEUMOLOGIA</option>
+                    <option value="PSICOLOGIA">PSICOLOGIA</option>
+                    <option value="SOCIOLOGIA">SOCIOLOGIA</option>
+                    <option value="TEOLOGIA">TEOLOGIA</option>
                 </select>
-                <textarea id="bookDesc" placeholder="DESCRIPCIÓN..." class="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-7 h-20 sm:h-24 outline-none text-[10px] uppercase focus:border-blue-500 transition-all" required></textarea>
+                <textarea id="bookDesc" placeholder="DESCRIPCION..." class="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-7 h-20 sm:h-24 outline-none text-[10px] uppercase focus:border-blue-500 transition-all" required></textarea>
                 <div class="space-y-2 pt-4 border-t border-white/5">
                     <p class="text-[8px] font-black text-blue-500 tracking-[0.2em] uppercase">Enlaces Directos (Google Drive)</p>
                     <input type="url" id="bookUrl" placeholder="LINK PDF DRIVE (Compartido)" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-5 outline-none focus:border-blue-500 text-[10px]" required>
@@ -199,7 +198,7 @@
         </div>
     </div>
 
-    <!-- Script de Lógica y Firebase -->
+    <!-- Script de Logica y Firebase -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
