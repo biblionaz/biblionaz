@@ -30,13 +30,15 @@
             border: 1px solid rgba(255, 255, 255, 0.05); 
         }
 
+        /* AJUSTE CRÍTICO: Título que nunca se rompe y escala perfectamente */
         .main-title { 
             font-weight: 900; 
             letter-spacing: -0.05em; 
-            line-height: 1; 
-            /* Asegura que no rompa en dos líneas */
+            line-height: 0.9; 
             white-space: nowrap;
             display: inline-block;
+            /* clamp(min, preferido, max) asegura que sea responsivo sin romperse */
+            font-size: clamp(3rem, 13vw, 11rem);
         }
 
         .text-glow { 
@@ -113,11 +115,10 @@
         </div>
     </nav>
 
-    <header class="relative min-h-[60vh] sm:min-h-[80vh] flex flex-col items-center justify-center gradient-bg px-4 text-center overflow-hidden pt-24 sm:pt-20">
+    <header class="relative min-h-[50vh] sm:min-h-[70vh] flex flex-col items-center justify-center gradient-bg px-4 text-center overflow-hidden pt-24 sm:pt-20">
         <div class="absolute top-1/4 left-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-blue-600/10 rounded-full blur-[80px] sm:blur-[120px] animate-pulse"></div>
         <div class="relative z-10 space-y-4 sm:space-y-6 w-full max-w-7xl">
-            <!-- TAMAÑOS DE FUENTE AJUSTADOS PARA UNA SOLA LÍNEA -->
-            <h1 class="main-title text-[12vw] sm:text-7xl md:text-9xl lg:text-[11rem] text-white text-glow uppercase select-none px-2">
+            <h1 class="main-title text-white text-glow uppercase select-none px-2">
                  BIBLIO<span class="text-blue-600">NAZ</span>
             </h1>
             <p class="text-blue-400/60 font-black text-[8px] sm:text-sm tracking-[0.3em] sm:tracking-[0.6em] uppercase mb-6 sm:mb-12">Recursos Digitales para el Ministerio</p>
@@ -176,6 +177,7 @@
                     <option value="PSICOLOGIA">PSICOLOGÍA</option>
                     <option value="SOCIOLOGIA">SOCIOLOGÍA</option>
                     <option value="TEOLOGÍA">TEOLOGÍA</option>
+                    <option value="EVANGELISMO">EVANGELISMO</option>
                 </select>
                 <textarea id="bookDesc" placeholder="DESCRIPCIÓN..." class="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-7 h-20 sm:h-24 outline-none text-[10px] uppercase focus:border-blue-500 transition-all" required></textarea>
                 <div class="space-y-2 pt-4 border-t border-white/5">
