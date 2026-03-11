@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BiblioNaz | Biblioteca Virtual</title>
+    <title>IDN Distrito Sur Fronterizo | Biblioteca Virtual</title>
     <!-- Librerías Externas -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -89,7 +89,6 @@
             100% { transform: rotate(360deg); } 
         }
 
-        /* Ajuste de fuente para formularios para evitar problemas de caracteres */
         input, select, textarea, button {
             font-family: 'Outfit', sans-serif !important;
         }
@@ -98,29 +97,33 @@
 <body class="selection:bg-blue-600 selection:text-white">
 
     <nav class="fixed top-0 w-full z-50 px-2 sm:px-4 py-4 sm:py-6">
-        <div class="max-w-6xl mx-auto glass rounded-2xl sm:rounded-[2.5rem] px-4 sm:px-8 py-3 sm:py-4 flex justify-between items-center shadow-2xl border-white/5">
-            <div class="flex items-center gap-2 sm:gap-4">
-                <div class="w-9 h-9 sm:w-11 sm:h-11 bg-blue-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl shadow-blue-900/40">
-                     <i data-lucide="book-open-check" class="w-5 h-5 sm:w-6 sm:h-6 text-white"></i>
+        <div class="max-w-7xl mx-auto glass rounded-2xl sm:rounded-[2.5rem] px-4 sm:px-8 py-3 sm:py-5 flex justify-between items-center shadow-2xl border-white/5">
+            <!-- Logo e Identidad -->
+            <div class="flex items-center gap-4 sm:gap-5 flex-[4]">
+                <div class="w-12 h-12 sm:w-16 sm:h-16 flex-shrink-0 flex items-center justify-center">
+                    <img src="https://lh3.googleusercontent.com/u/0/d/1VGD1Gomo6PL_MyMh2QIcW0smy7jhGCFW=w200-h200" alt="IDN Logo" class="w-full h-full object-contain brightness-110">
                 </div>
-                <div>
-                     <h2 class="font-black text-lg sm:text-2xl tracking-tighter leading-none uppercase">BIBLIO<span class="text-blue-500">NAZ</span></h2>
-                     <p class="text-[6px] sm:text-[7px] font-bold tracking-[0.3em] opacity-30 uppercase">Distrito Sur Fronterizo</p>
+                <div class="min-w-0">
+                     <h2 class="font-black text-[11px] sm:text-xl tracking-tighter leading-none uppercase truncate whitespace-nowrap">
+                        <span class="text-white">IDN DISTRITO</span> <span class="text-blue-500">SUR FRONTERIZO</span>
+                     </h2>
                 </div>
             </div>
             
-            <div class="flex items-center gap-3 sm:gap-6">
+            <!-- Botones -->
+            <div class="flex items-center gap-3 sm:gap-6 flex-1 justify-end">
                 <button id="adminBtn" onclick="window.toggleAdminModal()" class="hidden text-[9px] font-black text-blue-400 tracking-widest hover:text-white transition-all uppercase underline underline-offset-4">Panel</button>
-                <button id="accessBtn" onclick="window.handleAccess()" class="bg-white text-black px-4 sm:px-8 py-2 sm:py-3 rounded-xl sm:rounded-2xl text-[9px] sm:text-[10px] font-black hover:bg-blue-600 hover:text-white transition-all uppercase tracking-widest shadow-xl active:scale-95">
+                <button id="accessBtn" onclick="window.handleAccess()" class="bg-white text-black px-4 sm:px-8 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl text-[9px] sm:text-[10px] font-black hover:bg-blue-600 hover:text-white transition-all uppercase tracking-widest shadow-xl active:scale-95 whitespace-nowrap">
                     Acceso
                 </button>
             </div>
         </div>
     </nav>
 
-    <header class="relative min-h-[50vh] sm:min-h-[70vh] flex flex-col items-center justify-center gradient-bg px-4 text-center overflow-hidden pt-24 sm:pt-20">
+    <header class="relative min-h-[50vh] sm:min-h-[70vh] flex flex-col items-center justify-center gradient-bg px-4 text-center overflow-hidden pt-36 sm:pt-24">
         <div class="absolute top-1/4 left-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-blue-600/10 rounded-full blur-[80px] sm:blur-[120px] animate-pulse"></div>
         <div class="relative z-10 space-y-4 sm:space-y-6 w-full max-w-7xl">
+            <!-- Título Principal -->
             <h1 class="main-title text-white text-glow uppercase select-none px-2">
                  BIBLIO<span class="text-blue-600">NAZ</span>
             </h1>
@@ -137,6 +140,7 @@
     <section id="catalogo" class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-24">
         <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-10 sm:mb-16 gap-6 sm:gap-8">
             <div class="space-y-2 sm:space-y-3">
+                <!-- Cambio solicitado aquí -->
                 <span class="text-blue-500 font-black text-[9px] sm:text-[10px] tracking-[0.4em] sm:tracking-[0.5em] uppercase block">Explorar</span>
                 <h3 class="text-3xl sm:text-5xl font-black tracking-tighter uppercase leading-none">BIBLIOTECA <span class="text-white/10">VIRTUAL</span></h3>
             </div>
@@ -151,7 +155,7 @@
         </div>
     </section>
 
-    <!-- Modal de Administracion -->
+    <!-- Modal de Administración -->
     <div id="adminModal">
         <div class="glass max-w-xl w-full p-6 sm:p-12 rounded-3xl sm:rounded-[3.5rem] border-white/10 relative mx-4 max-h-[92vh] overflow-y-auto no-scrollbar shadow-3xl">
             <button onclick="window.toggleAdminModal()" class="absolute top-6 right-6 sm:top-10 sm:right-10 text-white/20 hover:text-white transition-colors">
@@ -159,35 +163,34 @@
             </button>
             <div class="text-center mb-8 sm:mb-10">
                 <h3 class="text-2xl sm:text-3xl font-black tracking-tighter uppercase mb-2">AGREGAR <span class="text-blue-500">RECURSO</span></h3>
-                <p class="text-white/30 text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.3em]">Gestion de Enlaces</p>
+                <p class="text-white/30 text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.3em]">Gestión de Enlaces</p>
             </div>
             <form id="uploadForm" class="space-y-3 sm:space-y-4">
-                <input type="text" id="bookTitle" placeholder="TITULO" class="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-7 outline-none focus:border-blue-500 uppercase text-[10px] font-bold transition-all" required>
+                <input type="text" id="bookTitle" placeholder="TÍTULO" class="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-7 outline-none focus:border-blue-500 uppercase text-[10px] font-bold transition-all" required>
                 <select id="bookCategory" class="w-full bg-slate-900 border border-white/10 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-7 outline-none text-[10px] font-black uppercase cursor-pointer focus:border-blue-500 transition-all" required>
-                    <option value="" disabled selected>SELECCIONAR CATEGORIA</option>
-                    <option value="ADMINISTRACION">ADMINISTRACION</option>
-                    <option value="CRISTOLOGIA">CRISTOLOGIA</option>
+                    <option value="" disabled selected>SELECCIONAR CATEGORÍA</option>
+                    <option value="ADMINISTRACIÓN">ADMINISTRACIÓN</option>
+                    <option value="CRISTOLOGÍA">CRISTOLOGÍA</option>
                     <option value="DISCIPULADO">DISCIPULADO</option>
-                    <option value="EDUCACION CRISTIANA">EDUCACION CRISTIANA</option>
-                    <option value="ESCATOLOGIA">ESCATOLOGIA</option>
-                    <option value="ESTUDIOS BIBLICOS">ESTUDIOS BIBLICOS</option>
+                    <option value="EDUCACIÓN CRISTIANA">EDUCACIÓN CRISTIANA</option>
+                    <option value="ESCATOLOGÍA">ESCATOLOGÍA</option>
+                    <option value="ESTUDIOS BÍBLICOS">ESTUDIOS BÍBLICOS</option>
                     <option value="EVANGELISMO">EVANGELISMO</option>
                     <option value="FINANZAS">FINANZAS</option>
-                    <option value="GEOGRAFIA">GEOGRAFIA</option>
+                    <option value="GEOGRAFÍA">GEOGRAFÍA</option>
                     <option value="HISTORIA">HISTORIA</option>
                     <option value="LIDERAZGO">LIDERAZGO</option>
                     <option value="MANUALES">MANUALES Y REGLAMENTOS</option>
-                    <option value="NEUMOLOGIA">NEUMOLOGIA</option>
-                    <option value="PSICOLOGIA">PSICOLOGIA</option>
-                    <option value="SOCIOLOGIA">SOCIOLOGIA</option>
-                    <option value="TEOLOGIA">TEOLOGIA</option>
+                    <option value="NEUMOLOGÍA">NEUMOLOGÍA</option>
+                    <option value="PSICOLOGÍA">PSICOLOGÍA</option>
+                    <option value="SOCIOLOGÍA">SOCIOLOGÍA</option>
+                    <option value="TEOLOGÍA">TEOLOGÍA</option>
                 </select>
-                <textarea id="bookDesc" placeholder="DESCRIPCION..." class="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-7 h-20 sm:h-24 outline-none text-[10px] uppercase focus:border-blue-500 transition-all" required></textarea>
+                <textarea id="bookDesc" placeholder="DESCRIPCIÓN..." class="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-7 h-20 sm:h-24 outline-none text-[10px] uppercase focus:border-blue-500 transition-all" required></textarea>
                 <div class="space-y-2 pt-4 border-t border-white/5">
                     <p class="text-[8px] font-black text-blue-500 tracking-[0.2em] uppercase">Enlaces Directos (Google Drive)</p>
                     <input type="url" id="bookUrl" placeholder="LINK PDF DRIVE (Compartido)" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-5 outline-none focus:border-blue-500 text-[10px]" required>
                     <input type="url" id="bookCoverUrl" placeholder="LINK PORTADA IMAGEN DRIVE" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-5 outline-none focus:border-blue-500 text-[10px]" required>
-                    <p class="text-[7px] text-white/20 italic uppercase">* Asegurate de que los archivos tengan permisos para "Cualquier persona con el enlace".</p>
                 </div>
                 <button type="submit" id="submitBtn" class="w-full bg-blue-600 py-4 sm:py-6 mt-4 rounded-xl sm:rounded-2xl font-black uppercase text-[11px] sm:text-[12px] tracking-[0.2em] hover:bg-blue-500 transition-all shadow-xl">
                     GUARDAR RECURSO
@@ -196,13 +199,12 @@
         </div>
     </div>
 
-    <!-- Script de Logica y Firebase -->
+    <!-- Script de Lógica y Firebase -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, query, orderBy, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Configuracion de tu proyecto Firebase
         const firebaseConfig = {
           apiKey: "AIzaSyBN0eWd2_oeuZ00xnFgXdW4deVCStAFPkc",
           authDomain: "biblionaz.firebaseapp.com",
@@ -328,7 +330,7 @@
                     </button>` : ''}
                     
                     <div class="relative h-60 sm:h-72 rounded-2xl sm:rounded-3xl overflow-hidden mb-5 sm:mb-6 bg-slate-900 shadow-inner">
-                        <img src="${b.image}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/300x450?text=CARGAR+PORTADA'">
+                        <img src="${b.image}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/300x450?text=SIN+PORTADA'">
                         <div class="absolute top-3 left-3 bg-blue-600/90 px-3 py-1.5 rounded-lg text-[7px] font-black uppercase tracking-wider">${b.category}</div>
                     </div>
                     
