@@ -2,11 +2,11 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>BiblioNaz | Biblioteca Virtual</title>
+    <!-- Librerías Externas -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&display=swap');
         
@@ -21,6 +21,7 @@
             color: white; 
             scroll-behavior: smooth;
             margin: 0;
+            overflow-x: hidden;
         }
 
         .glass { 
@@ -32,25 +33,30 @@
         .main-title { 
             font-weight: 900; 
             letter-spacing: -0.05em; 
-            line-height: 0.9; 
+            line-height: 1; 
+            /* Asegura que no rompa en dos líneas */
+            white-space: nowrap;
+            display: inline-block;
         }
 
         .text-glow { 
-            text-shadow: 0 0 40px rgba(59, 130, 246, 0.4); 
+            text-shadow: 0 0 30px rgba(59, 130, 246, 0.3); 
         }
 
         .gradient-bg { 
-            background: radial-gradient(circle at 50% -10%, #1e40af, #020617 70%); 
+            background: radial-gradient(circle at 50% -10%, #1e40af, #020617 85%); 
         }
 
         .book-card { 
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); 
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); 
         }
 
-        .book-card:hover { 
-            transform: translateY(-12px); 
-            border-color: rgba(59, 130, 246, 0.3); 
-            background: rgba(255, 255, 255, 0.04); 
+        @media (hover: hover) {
+            .book-card:hover { 
+                transform: translateY(-8px); 
+                border-color: rgba(59, 130, 246, 0.3); 
+                background: rgba(255, 255, 255, 0.04); 
+            }
         }
 
         #adminModal { 
@@ -58,14 +64,10 @@
             position: fixed; 
             inset: 0; 
             z-index: 100; 
-            background: rgba(0, 0, 0, 0.96); 
+            background: rgba(0, 0, 0, 0.98); 
             backdrop-filter: blur(15px); 
             align-items: center; 
             justify-content: center; 
-        }
-
-        .admin-only { 
-            display: none; 
         }
 
         .no-scrollbar::-webkit-scrollbar { 
@@ -90,125 +92,112 @@
 </head>
 <body class="selection:bg-blue-600 selection:text-white">
 
-    <!-- Navegación -->
-    <nav class="fixed top-0 w-full z-50 px-4 py-6">
-        <div class="max-w-6xl mx-auto glass rounded-[2.5rem] px-8 py-4 flex justify-between items-center shadow-2xl border-white/5">
-            <div class="flex items-center gap-4">
-                <div class="w-11 h-11 bg-blue-600 rounded-2xl flex items-center justify-center shadow-xl shadow-blue-900/40">
-                     <i data-lucide="book-open-check" class="w-6 h-6 text-white"></i>
+    <nav class="fixed top-0 w-full z-50 px-2 sm:px-4 py-4 sm:py-6">
+        <div class="max-w-6xl mx-auto glass rounded-2xl sm:rounded-[2.5rem] px-4 sm:px-8 py-3 sm:py-4 flex justify-between items-center shadow-2xl border-white/5">
+            <div class="flex items-center gap-2 sm:gap-4">
+                <div class="w-9 h-9 sm:w-11 sm:h-11 bg-blue-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl shadow-blue-900/40">
+                     <i data-lucide="book-open-check" class="w-5 h-5 sm:w-6 sm:h-6 text-white"></i>
                 </div>
                 <div>
-                     <h2 class="font-black text-2xl tracking-tighter leading-none uppercase">BIBLIO<span class="text-blue-500">NAZ</span></h2>
-                     <p class="text-[7px] font-bold tracking-[0.4em] opacity-30 uppercase">Distrito Sur Fronterizo</p>
+                     <h2 class="font-black text-lg sm:text-2xl tracking-tighter leading-none uppercase">BIBLIO<span class="text-blue-500">NAZ</span></h2>
+                     <p class="text-[6px] sm:text-[7px] font-bold tracking-[0.3em] opacity-30 uppercase">Distrito Sur Fronterizo</p>
                 </div>
             </div>
             
-            <div class="flex items-center gap-6">
-                <button id="adminBtn" onclick="toggleAdminModal()" class="admin-only text-[10px] font-black text-blue-400 tracking-widest hover:text-white transition-all uppercase underline underline-offset-8">Panel de Gestión</button>
-                <button id="accessBtn" onclick="handleAccess()" class="bg-white text-black px-8 py-3 rounded-2xl text-[10px] font-black hover:bg-blue-600 hover:text-white transition-all uppercase tracking-widest shadow-xl active:scale-95">
+            <div class="flex items-center gap-3 sm:gap-6">
+                <button id="adminBtn" onclick="window.toggleAdminModal()" class="hidden text-[9px] font-black text-blue-400 tracking-widest hover:text-white transition-all uppercase underline underline-offset-4">Panel</button>
+                <button id="accessBtn" onclick="window.handleAccess()" class="bg-white text-black px-4 sm:px-8 py-2 sm:py-3 rounded-xl sm:rounded-2xl text-[9px] sm:text-[10px] font-black hover:bg-blue-600 hover:text-white transition-all uppercase tracking-widest shadow-xl active:scale-95">
                     Acceso
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- Header Principal -->
-    <header class="relative min-h-[80vh] flex flex-col items-center justify-center gradient-bg px-6 text-center overflow-hidden">
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-[120px] animate-pulse"></div>
-        
-        <div class="relative z-10 space-y-6">
-            <h1 class="main-title text-8xl md:text-[11rem] text-white text-glow uppercase select-none">
-                 BIBLIO<br><span class="text-blue-600">NAZ</span>
+    <header class="relative min-h-[60vh] sm:min-h-[80vh] flex flex-col items-center justify-center gradient-bg px-4 text-center overflow-hidden pt-24 sm:pt-20">
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-blue-600/10 rounded-full blur-[80px] sm:blur-[120px] animate-pulse"></div>
+        <div class="relative z-10 space-y-4 sm:space-y-6 w-full max-w-7xl">
+            <!-- TAMAÑOS DE FUENTE AJUSTADOS PARA UNA SOLA LÍNEA -->
+            <h1 class="main-title text-[12vw] sm:text-7xl md:text-9xl lg:text-[11rem] text-white text-glow uppercase select-none px-2">
+                 BIBLIO<span class="text-blue-600">NAZ</span>
             </h1>
-            <p class="text-blue-400/60 font-black text-sm tracking-[0.6em] uppercase mb-12">Recursos Digitales para el Ministerio</p>
+            <p class="text-blue-400/60 font-black text-[8px] sm:text-sm tracking-[0.3em] sm:tracking-[0.6em] uppercase mb-6 sm:mb-12">Recursos Digitales para el Ministerio</p>
             
-            <div class="relative max-w-2xl mx-auto w-full group">
+            <div class="relative max-w-2xl mx-auto w-full group px-2">
                 <div class="absolute inset-0 bg-blue-600/20 blur-3xl opacity-0 group-focus-within:opacity-100 transition-opacity"></div>
-                <input type="text" id="searchInput" placeholder="BUSCAR LIBROS, MANUALES O AUTORES..." class="relative w-full glass py-7 px-14 rounded-full border-white/10 text-base focus:outline-none focus:border-blue-500/50 text-center tracking-[0.2em] transition-all uppercase font-light">
-                <i data-lucide="search" class="absolute left-8 top-7 w-6 h-6 opacity-20"></i>
+                <input type="text" id="searchInput" placeholder="BUSCAR RECURSOS..." class="relative w-full glass py-5 sm:py-7 px-10 sm:px-14 rounded-full border-white/10 text-xs sm:text-base focus:outline-none focus:border-blue-500/50 text-center tracking-[0.1em] sm:tracking-[0.2em] transition-all uppercase font-light">
+                <i data-lucide="search" class="absolute left-6 sm:left-8 top-5 sm:top-7 w-4 h-4 sm:w-6 sm:h-6 opacity-20"></i>
             </div>
         </div>
     </header>
 
-    <!-- Sección de Catálogo -->
-    <section id="catalogo" class="max-w-7xl mx-auto px-6 py-24">
-        <div class="flex flex-col md:flex-row items-end justify-between mb-16 gap-8">
-            <div class="space-y-3">
-                <span class="text-blue-500 font-black text-[10px] tracking-[0.5em] uppercase block">Explorar</span>
-                <h3 class="text-5xl font-black tracking-tighter uppercase leading-none">BIBLIOTECA <span class="text-white/10">VIRTUAL</span></h3>
+    <section id="catalogo" class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-24">
+        <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-10 sm:mb-16 gap-6 sm:gap-8">
+            <div class="space-y-2 sm:space-y-3">
+                <span class="text-blue-500 font-black text-[9px] sm:text-[10px] tracking-[0.4em] sm:tracking-[0.5em] uppercase block">Explorar</span>
+                <h3 class="text-3xl sm:text-5xl font-black tracking-tighter uppercase leading-none">BIBLIOTECA <span class="text-white/10">VIRTUAL</span></h3>
             </div>
-            
-            <div id="categoryFilters" class="flex gap-3 overflow-x-auto no-scrollbar pb-2 max-w-full"></div>
+            <div id="categoryFilters" class="flex gap-2 overflow-x-auto no-scrollbar pb-2 w-full md:max-w-max"></div>
         </div>
         
-        <div id="booksGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-            <div id="loadingIndicator" class="col-span-full text-center py-32">
-                <div class="loader mb-6"></div>
-                <p class="text-[11px] font-bold tracking-[0.6em] opacity-30 uppercase">Sincronizando biblioteca...</p>
+        <div id="booksGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10">
+            <div id="loadingIndicator" class="col-span-full text-center py-20 sm:py-32">
+                <div class="loader mb-4 sm:mb-6"></div>
+                <p class="text-[10px] sm:text-[11px] font-bold tracking-[0.4em] sm:tracking-[0.6em] opacity-30 uppercase">Sincronizando biblioteca...</p>
             </div>
         </div>
     </section>
 
     <!-- Modal de Administración -->
     <div id="adminModal">
-        <div class="glass max-w-xl w-full p-12 rounded-[3.5rem] border-white/10 relative mx-4 max-h-[92vh] overflow-y-auto no-scrollbar shadow-3xl">
-            <button onclick="toggleAdminModal()" class="absolute top-10 right-10 text-white/20 hover:text-white transition-colors">
-                <i data-lucide="x-circle" class="w-9 h-9"></i>
+        <div class="glass max-w-xl w-full p-6 sm:p-12 rounded-3xl sm:rounded-[3.5rem] border-white/10 relative mx-4 max-h-[92vh] overflow-y-auto no-scrollbar shadow-3xl">
+            <button onclick="window.toggleAdminModal()" class="absolute top-6 right-6 sm:top-10 sm:right-10 text-white/20 hover:text-white transition-colors">
+                <i data-lucide="x-circle" class="w-7 h-7 sm:w-9 sm:h-9"></i>
             </button>
-            
-            <div class="text-center mb-10">
-                <h3 class="text-3xl font-black tracking-tighter uppercase mb-2">NUEVA <span class="text-blue-500">CARGA</span></h3>
-                <p class="text-white/30 text-[9px] font-bold uppercase tracking-[0.4em]">Panel de Repositorio Digital</p>
+            <div class="text-center mb-8 sm:mb-10">
+                <h3 class="text-2xl sm:text-3xl font-black tracking-tighter uppercase mb-2">AÑADIR <span class="text-blue-500">RECURSO</span></h3>
+                <p class="text-white/30 text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.3em]">Gestión de Enlaces</p>
             </div>
-            
-            <form id="uploadForm" class="space-y-6">
-                <input type="text" id="bookTitle" placeholder="TÍTULO DEL RECURSO" class="w-full bg-white/5 border border-white/10 rounded-2xl py-5 px-7 outline-none focus:border-blue-500 uppercase text-xs font-bold transition-all" required>
-                
-                <select id="bookCategory" class="w-full bg-slate-900 border border-white/10 rounded-2xl py-5 px-7 outline-none text-[10px] font-black uppercase appearance-none cursor-pointer focus:border-blue-500 transition-all" required>
+            <form id="uploadForm" class="space-y-3 sm:space-y-4">
+                <input type="text" id="bookTitle" placeholder="TÍTULO" class="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-7 outline-none focus:border-blue-500 uppercase text-[10px] font-bold transition-all" required>
+                <select id="bookCategory" class="w-full bg-slate-900 border border-white/10 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-7 outline-none text-[10px] font-black uppercase cursor-pointer focus:border-blue-500 transition-all" required>
                     <option value="" disabled selected>SELECCIONAR CATEGORÍA</option>
-                    <option value="TEOLOGÍA">TEOLOGÍA</option>
+                    <option value="ADMINISTRACION">ADMINISTRACIÓN</option>
+                    <option value="CRISTOLOGIA">CRISTOLOGÍA</option>
+                    <option value="DISCIPULADO">DISCIPULADO</option>
+                    <option value="EDUCACIÓN CRISTIANA">EDUCACIÓN CRISTIANA</option>
+                    <option value="ESCATOLOGIA">ESCATOLOGÍA</option>
                     <option value="ESTUDIOS BÍBLICOS">ESTUDIOS BÍBLICOS</option>
+                    <option value="FINANZAS">FINANZAS</option>
+                    <option value="GEOGRAFIA">GEOGRAFÍA</option>
+                    <option value="HISTORIA">HISTORIA</option>
                     <option value="LIDERAZGO">LIDERAZGO</option>
                     <option value="MANUALES">MANUALES Y REGLAMENTOS</option>
-                    <option value="EDUCACIÓN CRISTIANA">EDUCACIÓN CRISTIANA</option>
+                    <option value="NEUMOLOGIA">NEUMOLOGÍA</option>
+                    <option value="PSICOLOGIA">PSICOLOGÍA</option>
+                    <option value="SOCIOLOGIA">SOCIOLOGÍA</option>
+                    <option value="TEOLOGÍA">TEOLOGÍA</option>
                 </select>
-
-                <textarea id="bookDesc" placeholder="RESUMEN O DESCRIPCIÓN BREVE..." class="w-full bg-white/5 border border-white/10 rounded-2xl py-5 px-7 h-32 outline-none text-[10px] uppercase focus:border-blue-500 transition-all" required></textarea>
-
-                <div class="relative border-2 border-dashed border-white/10 rounded-[2.5rem] p-10 text-center hover:border-blue-500/50 transition-all cursor-pointer group" onclick="document.getElementById('fileInput').click()">
-                    <canvas id="pdfPreview" class="hidden h-44 mx-auto mb-6 rounded-xl shadow-2xl border border-white/10"></canvas>
-                    <div id="uploadUI">
-                        <div class="w-16 h-16 bg-blue-600/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                            <i data-lucide="file-up" class="w-8 h-8 text-blue-500"></i>
-                        </div>
-                        <p id="fileNameDisplay" class="text-[10px] font-black opacity-30 uppercase tracking-[0.2em]">Cargar archivo PDF</p>
-                    </div>
-                    <input type="file" id="fileInput" accept="application/pdf" class="hidden" onchange="processPDF(this)">
+                <textarea id="bookDesc" placeholder="DESCRIPCIÓN..." class="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-7 h-20 sm:h-24 outline-none text-[10px] uppercase focus:border-blue-500 transition-all" required></textarea>
+                <div class="space-y-2 pt-4 border-t border-white/5">
+                    <p class="text-[8px] font-black text-blue-500 tracking-[0.2em] uppercase">Enlaces Directos (Google Drive)</p>
+                    <input type="url" id="bookUrl" placeholder="LINK PDF DRIVE (Compartido)" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-5 outline-none focus:border-blue-500 text-[10px]" required>
+                    <input type="url" id="bookCoverUrl" placeholder="LINK PORTADA IMAGEN DRIVE" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-5 outline-none focus:border-blue-500 text-[10px]" required>
+                    <p class="text-[7px] text-white/20 italic uppercase">* Asegúrate de que los archivos tengan permisos para "Cualquier persona con el enlace".</p>
                 </div>
-
-                <div id="progressBox" class="hidden bg-blue-600/5 p-6 rounded-3xl border border-blue-500/20">
-                    <div class="flex justify-between mb-3 items-center">
-                        <span id="statusTxt" class="text-[9px] font-black text-blue-400 uppercase tracking-widest">Estado: Preparando...</span>
-                        <span id="percentTxt" class="text-xs font-black text-blue-400">0%</span>
-                    </div>
-                    <div class="h-2 bg-white/5 rounded-full overflow-hidden">
-                        <div id="progressBar" class="h-full bg-blue-600 w-0 transition-all shadow-[0_0_20px_rgba(59,130,246,0.6)]"></div>
-                    </div>
-                </div>
-
-                <button type="submit" id="submitBtn" class="w-full bg-blue-600 py-6 rounded-2xl font-black uppercase text-[12px] tracking-[0.3em] hover:bg-blue-500 active:scale-95 transition-all shadow-2xl">
-                    PUBLICAR DOCUMENTO
+                <button type="submit" id="submitBtn" class="w-full bg-blue-600 py-4 sm:py-6 mt-4 rounded-xl sm:rounded-2xl font-black uppercase text-[11px] sm:text-[12px] tracking-[0.2em] hover:bg-blue-500 transition-all shadow-xl">
+                    GUARDAR RECURSO
                 </button>
             </form>
         </div>
     </div>
 
+    <!-- Script de Lógica y Firebase -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { getStorage, ref, uploadBytesResumable, getDownloadURL, uploadBytes } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
+        import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, query, orderBy, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
+        // Configuración de tu proyecto Firebase
         const firebaseConfig = {
           apiKey: "AIzaSyBN0eWd2_oeuZ00xnFgXdW4deVCStAFPkc",
           authDomain: "biblionaz.firebaseapp.com",
@@ -218,185 +207,13 @@
           appId: "1:642836204657:web:fb425f9e45d27b27005fd0"
         };
 
-        // Inicialización
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        const storage = getStorage(app);
-        
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-        let globalData = [], selectedFile = null, coverBlob = null, isAdmin = false, currentUser = null;
+        let globalData = [], isAdmin = false;
 
-        // Autenticación Anónima necesaria para escribir en Firebase
-        signInAnonymously(auth).catch(err => console.error("Error Auth:", err));
-
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                currentUser = user;
-                // Cargar datos solo cuando hay sesión
-                const q = query(collection(db, "books"), orderBy("createdAt", "desc"));
-                onSnapshot(q, (snap) => {
-                    globalData = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-                    renderFilters();
-                    renderBooks(globalData);
-                    const loader = document.getElementById('loadingIndicator');
-                    if (loader) loader.style.display = 'none';
-                }, (error) => {
-                    console.error("Error en snapshot:", error);
-                });
-            }
-        });
-
-        const dataURLtoBlob = (dataurl) => {
-            let arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-                bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-            while(n--) u8arr[n] = bstr.charCodeAt(n);
-            return new Blob([u8arr], {type:mime});
-        }
-
-        window.processPDF = async (input) => {
-            const file = input.files[0];
-            if (!file) return;
-            selectedFile = file;
-            const display = document.getElementById('fileNameDisplay');
-            const canvas = document.getElementById('pdfPreview');
-            if (display) display.innerText = "GENERANDO VISTA PREVIA...";
-            
-            try {
-                const pdf = await pdfjsLib.getDocument({ data: await file.arrayBuffer() }).promise;
-                const page = await pdf.getPage(1);
-                const viewport = page.getViewport({ scale: 0.5 });
-                canvas.height = viewport.height; canvas.width = viewport.width;
-                await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
-                const dataURL = canvas.toDataURL('image/jpeg', 0.7);
-                coverBlob = dataURLtoBlob(dataURL);
-                canvas.classList.remove('hidden');
-                const uploadUI = document.getElementById('uploadUI');
-                if (uploadUI) uploadUI.classList.add('hidden');
-                if (display) display.innerText = file.name;
-            } catch(e) {
-                console.error("Error al procesar PDF:", e);
-                if (display) display.innerText = file.name + " (Sin vista previa)";
-            }
-        };
-
-        const uploadForm = document.getElementById('uploadForm');
-        if (uploadForm) {
-            uploadForm.onsubmit = async (e) => {
-                e.preventDefault();
-                if(!selectedFile) return alert("Selecciona un archivo PDF");
-                if(!currentUser) return alert("Esperando autenticación...");
-
-                const btn = document.getElementById('submitBtn');
-                const progressBox = document.getElementById('progressBox');
-                const bar = document.getElementById('progressBar');
-                const percent = document.getElementById('percentTxt');
-                const statusTxt = document.getElementById('statusTxt');
-
-                if (btn) btn.disabled = true;
-                if (progressBox) progressBox.classList.remove('hidden');
-
-                try {
-                    const timestamp = Date.now();
-                    let finalCover = "https://via.placeholder.com/300x450?text=LIBRO";
-
-                    // 1. Subir Miniatura
-                    if(coverBlob) {
-                        if (statusTxt) statusTxt.innerText = "Subiendo miniatura...";
-                        try {
-                            const cRef = ref(storage, `covers/cover_${timestamp}.jpg`);
-                            const coverSnapshot = await uploadBytes(cRef, coverBlob);
-                            finalCover = await getDownloadURL(coverSnapshot.ref);
-                        } catch (err) {
-                            console.warn("Fallo al subir miniatura:", err);
-                        }
-                    }
-
-                    // 2. Subir PDF
-                    if (statusTxt) statusTxt.innerText = "Subiendo PDF...";
-                    const cleanName = selectedFile.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9.]/gi, '_').toLowerCase();
-                    const pRef = ref(storage, `pdfs/${timestamp}_${cleanName}`);
-                    const task = uploadBytesResumable(pRef, selectedFile);
-
-                    task.on('state_changed', 
-                        (s) => {
-                            const p = (s.bytesTransferred / s.totalBytes) * 100;
-                            if (bar) bar.style.width = p + '%';
-                            if (percent) percent.innerText = Math.round(p) + '%';
-                        },
-                        (err) => {
-                            console.error("Error en Storage:", err);
-                            let msg = "Error de subida.";
-                            if(err.code === 'storage/unauthorized') msg = "Error de permisos: Revisa las reglas de Storage en la consola.";
-                            if(err.code === 'storage/retry-limit-exceeded') msg = "El servidor no responde. ¿Activaste el bucket en la consola?";
-                            alert(msg + " (" + err.message + ")");
-                            if (btn) btn.disabled = false;
-                        },
-                        async () => {
-                            if (statusTxt) statusTxt.innerText = "Registrando en base de datos...";
-                            const pdfUrl = await getDownloadURL(task.snapshot.ref);
-                            
-                            // 3. Registrar en Firestore
-                            await addDoc(collection(db, "books"), {
-                                title: document.getElementById('bookTitle').value.toUpperCase(),
-                                category: document.getElementById('bookCategory').value,
-                                description: document.getElementById('bookDesc').value.toUpperCase(),
-                                image: finalCover,
-                                link: pdfUrl,
-                                createdAt: serverTimestamp()
-                            });
-
-                            alert("¡DOCUMENTO PUBLICADO EXITOSAMENTE!");
-                            location.reload();
-                        }
-                    );
-                } catch(err) {
-                    console.error("Error general:", err);
-                    alert("Error crítico: " + err.message);
-                    if (btn) btn.disabled = false;
-                }
-            };
-        }
-
-        function renderFilters() {
-            const box = document.getElementById('categoryFilters');
-            if (!box) return;
-            const cats = ['TODOS', ...new Set(globalData.map(b => b.category))];
-            box.innerHTML = cats.map(c => `
-                <button onclick="filter('${c}')" class="whitespace-nowrap px-8 py-3 rounded-2xl glass text-[10px] font-black uppercase tracking-widest border border-white/5 hover:bg-blue-600 transition-all">
-                    ${c}
-                </button>
-            `).join('');
-        }
-
-        window.filter = (c) => {
-            renderBooks(c === 'TODOS' ? globalData : globalData.filter(b => b.category === c));
-        }
-
-        function renderBooks(list) {
-            const grid = document.getElementById('booksGrid');
-            if (!grid) return;
-            if(list.length === 0) {
-                grid.innerHTML = '<div class="col-span-full opacity-20 text-center py-20 font-black uppercase tracking-widest">Sin recursos disponibles</div>';
-                return;
-            }
-            grid.innerHTML = list.map(b => `
-                <div class="book-card glass rounded-[2.5rem] p-6 flex flex-col border border-white/5">
-                    <div class="relative h-72 rounded-3xl overflow-hidden mb-6 bg-slate-900 shadow-xl">
-                        <img src="${b.image}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/300x450?text=PDF'">
-                        <div class="absolute top-4 right-4 bg-blue-600 px-4 py-2 rounded-xl text-[8px] font-black uppercase tracking-wider">${b.category}</div>
-                    </div>
-                    <h4 class="text-xl font-black uppercase tracking-tighter mb-2 line-clamp-1">${b.title}</h4>
-                    <p class="text-[10px] text-white/30 uppercase line-clamp-3 mb-8 font-medium leading-relaxed">${b.description}</p>
-                    <div class="flex gap-3 mt-auto">
-                        <button onclick="window.open('${b.link}')" class="flex-1 py-4 glass rounded-2xl text-[9px] font-black uppercase hover:bg-white/10 transition-all tracking-widest">Leer</button>
-                        <a href="${b.link}" download class="flex-1 py-4 bg-blue-600 rounded-2xl text-[9px] font-black uppercase text-center hover:bg-blue-500 transition-all tracking-widest shadow-lg">Descargar</a>
-                    </div>
-                </div>
-            `).join('');
-            lucide.createIcons();
-        }
+        signInAnonymously(auth);
 
         window.toggleAdminModal = () => {
             const m = document.getElementById('adminModal');
@@ -405,23 +222,156 @@
 
         window.handleAccess = () => {
             isAdmin = !isAdmin;
-            document.querySelectorAll('.admin-only').forEach(el => el.style.display = isAdmin ? 'block' : 'none');
             const accessBtn = document.getElementById('accessBtn');
+            const adminPanelBtn = document.getElementById('adminBtn');
+            
             if (accessBtn) {
                 accessBtn.innerText = isAdmin ? 'SALIR' : 'ACCESO';
                 accessBtn.classList.toggle('bg-red-600', isAdmin);
+                accessBtn.classList.toggle('text-white', isAdmin);
+                accessBtn.classList.toggle('bg-white', !isAdmin);
+                accessBtn.classList.toggle('text-black', !isAdmin);
             }
+            if (adminPanelBtn) {
+                adminPanelBtn.style.display = isAdmin ? 'block' : 'none';
+            }
+            renderBooks(globalData);
         };
 
-        const searchInput = document.getElementById('searchInput');
-        if (searchInput) {
-            searchInput.oninput = (e) => {
-                const q = e.target.value.toLowerCase();
-                renderBooks(globalData.filter(b => b.title.toLowerCase().includes(q) || b.category.toLowerCase().includes(q)));
-            };
+        window.filter = (c) => {
+            renderBooks(c === 'TODOS' ? globalData : globalData.filter(b => b.category === c));
+        };
+
+        async function performDelete(id) {
+            if (confirm("¿Seguro que deseas eliminar este recurso?")) {
+                try {
+                    await deleteDoc(doc(db, "books", id));
+                } catch (e) {
+                    console.error("Error al eliminar:", e);
+                }
+            }
         }
 
-        lucide.createIcons();
+        document.getElementById('booksGrid').addEventListener('click', (e) => {
+            const deleteBtn = e.target.closest('.delete-btn');
+            if (deleteBtn) {
+                const id = deleteBtn.getAttribute('data-id');
+                performDelete(id);
+            }
+        });
+
+        function getDrivePreview(url) {
+            if (url && url.includes('drive.google.com')) {
+                const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+                return match ? `https://drive.google.com/file/d/${match[1]}/view?usp=sharing` : url;
+            }
+            return url;
+        }
+
+        function fixDriveLink(url) {
+            if (url && url.includes('drive.google.com')) {
+                const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+                return match ? `https://lh3.googleusercontent.com/u/0/d/${match[1]}=w800-h1200?authuser=0` : url;
+            }
+            return url;
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const q = query(collection(db, "books"), orderBy("createdAt", "desc"));
+                onSnapshot(q, (snap) => {
+                    globalData = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                    renderFilters();
+                    renderBooks(globalData);
+                    const loader = document.getElementById('loadingIndicator');
+                    if (loader) loader.style.display = 'none';
+                });
+            }
+        });
+
+        function renderFilters() {
+            const box = document.getElementById('categoryFilters');
+            if (!box) return;
+            const cats = ['TODOS', ...new Set(globalData.map(b => b.category))].sort((a, b) => {
+                if(a === 'TODOS') return -1;
+                if(b === 'TODOS') return 1;
+                return a.localeCompare(b);
+            });
+            box.innerHTML = cats.map(c => `
+                <button onclick="window.filter('${c}')" class="whitespace-nowrap px-6 sm:px-8 py-2 sm:py-3 rounded-xl sm:rounded-2xl glass text-[9px] sm:text-[10px] font-black uppercase tracking-widest border border-white/5 hover:bg-blue-600 transition-all">
+                    ${c}
+                </button>
+            `).join('');
+        }
+
+        function renderBooks(list) {
+            const grid = document.getElementById('booksGrid');
+            if (!grid) return;
+            
+            if (list.length === 0) {
+                grid.innerHTML = '<div class="col-span-full opacity-20 text-center py-20 font-black uppercase tracking-widest text-[10px]">Sin recursos</div>';
+                return;
+            }
+
+            grid.innerHTML = list.map(b => {
+                const previewLink = getDrivePreview(b.link);
+                return `
+                <div class="book-card glass rounded-[2rem] sm:rounded-[2.5rem] p-5 sm:p-6 flex flex-col border border-white/5 relative shadow-xl">
+                    ${isAdmin ? `
+                    <button data-id="${b.id}" class="delete-btn absolute top-3 right-3 sm:top-4 sm:right-4 z-30 bg-red-600/90 text-white p-2.5 sm:p-3 rounded-full hover:bg-red-700 transition-all shadow-2xl active:scale-90">
+                        <i data-lucide="trash-2" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+                    </button>` : ''}
+                    
+                    <div class="relative h-60 sm:h-72 rounded-2xl sm:rounded-3xl overflow-hidden mb-5 sm:mb-6 bg-slate-900 shadow-inner">
+                        <img src="${b.image}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/300x450?text=CARGAR+PORTADA'">
+                        <div class="absolute top-3 left-3 bg-blue-600/90 px-3 py-1.5 rounded-lg text-[7px] font-black uppercase tracking-wider">${b.category}</div>
+                    </div>
+                    
+                    <h4 class="text-lg sm:text-xl font-black uppercase tracking-tighter mb-2 line-clamp-1">${b.title}</h4>
+                    <p class="text-[9px] sm:text-[10px] text-white/30 uppercase line-clamp-2 mb-6 sm:mb-8 font-medium leading-relaxed">${b.description}</p>
+                    
+                    <div class="flex gap-2 sm:gap-3 mt-auto">
+                        <button onclick="window.open('${previewLink}')" class="flex-1 py-3.5 sm:py-4 glass rounded-xl sm:rounded-2xl text-[8px] sm:text-[9px] font-black uppercase hover:bg-white/10 transition-all tracking-widest">Ver Online</button>
+                        <a href="${b.link}" target="_blank" class="flex-1 py-3.5 sm:py-4 bg-blue-600 rounded-xl sm:rounded-2xl text-[8px] sm:text-[9px] font-black uppercase text-center hover:bg-blue-500 transition-all tracking-widest shadow-lg">Descargar</a>
+                    </div>
+                </div>
+            `;}).join('');
+
+            if (window.lucide) window.lucide.createIcons();
+        }
+
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.innerText = "PROCESANDO...";
+            try {
+                await addDoc(collection(db, "books"), {
+                    title: document.getElementById('bookTitle').value.toUpperCase(),
+                    category: document.getElementById('bookCategory').value,
+                    description: document.getElementById('bookDesc').value.toUpperCase(),
+                    image: fixDriveLink(document.getElementById('bookCoverUrl').value),
+                    link: document.getElementById('bookUrl').value,
+                    createdAt: serverTimestamp()
+                });
+                window.toggleAdminModal();
+                e.target.reset();
+            } catch(err) {
+                alert("Error: " + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "GUARDAR RECURSO";
+            }
+        });
+
+        document.getElementById('searchInput').oninput = (e) => {
+            const q = e.target.value.toLowerCase();
+            renderBooks(globalData.filter(b => 
+                (b.title && b.title.toLowerCase().includes(q)) || 
+                (b.category && b.category.toLowerCase().includes(q))
+            ));
+        };
+
     </script>
 </body>
 </html>
