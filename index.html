@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>IDN Distrito Sur Fronterizo | Biblioteca Virtual</title>
-    <!-- Librerias Externas -->
+    <title>BiblioNaz | Biblioteca Virtual</title>
+    <!-- Librerías Externas -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght=300;400;600;900&display=swap');
         
         :root { 
             --primary: #3b82f6; 
@@ -33,10 +33,8 @@
         .main-title { 
             font-weight: 900; 
             letter-spacing: -0.05em; 
-            line-height: 0.9; 
+            line-height: 1; 
             white-space: nowrap;
-            display: inline-block;
-            font-size: clamp(3rem, 13vw, 11rem);
         }
 
         .text-glow { 
@@ -88,51 +86,43 @@
             0% { transform: rotate(0deg); } 
             100% { transform: rotate(360deg); } 
         }
-
-        input, select, textarea, button {
-            font-family: 'Outfit', sans-serif !important;
-        }
     </style>
 </head>
 <body class="selection:bg-blue-600 selection:text-white">
 
     <nav class="fixed top-0 w-full z-50 px-2 sm:px-4 py-4 sm:py-6">
-        <div class="max-w-7xl mx-auto glass rounded-2xl sm:rounded-[2.5rem] px-4 sm:px-8 py-3 sm:py-5 flex justify-between items-center shadow-2xl border-white/5">
-            <!-- Logo e Identidad -->
-            <div class="flex items-center gap-4 sm:gap-5 flex-[4]">
-                <div class="w-12 h-12 sm:w-16 sm:h-16 flex-shrink-0 flex items-center justify-center">
-                    <img src="https://lh3.googleusercontent.com/u/0/d/1VGD1Gomo6PL_MyMh2QIcW0smy7jhGCFW=w200-h200" alt="IDN Logo" class="w-full h-full object-contain brightness-110">
+        <div class="max-w-6xl mx-auto glass rounded-2xl sm:rounded-[2.5rem] px-4 sm:px-8 py-3 sm:py-4 flex justify-between items-center shadow-2xl border-white/5">
+            <div class="flex items-center gap-2 sm:gap-4">
+                <div class="w-9 h-9 sm:w-11 sm:h-11 bg-blue-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl shadow-blue-900/40">
+                     <i data-lucide="book-open-check" class="w-5 h-5 sm:w-6 sm:h-6 text-white"></i>
                 </div>
-                <div class="min-w-0">
-                     <h2 class="font-black text-[11px] sm:text-xl tracking-tighter leading-none uppercase truncate whitespace-nowrap">
-                        <span class="text-white">IDN DISTRITO</span> <span class="text-blue-500">SUR FRONTERIZO</span>
-                     </h2>
+                <div>
+                     <h2 class="font-black text-lg sm:text-2xl tracking-tighter leading-none uppercase">BIBLIO<span class="text-blue-500">NAZ</span></h2>
+                     <p class="text-[6px] sm:text-[7px] font-bold tracking-[0.3em] opacity-30 uppercase">Distrito Sur Fronterizo</p>
                 </div>
             </div>
             
-            <!-- Botones -->
-            <div class="flex items-center gap-3 sm:gap-6 flex-1 justify-end">
+            <div class="flex items-center gap-3 sm:gap-6">
                 <button id="adminBtn" onclick="window.toggleAdminModal()" class="hidden text-[9px] font-black text-blue-400 tracking-widest hover:text-white transition-all uppercase underline underline-offset-4">Panel</button>
-                <button id="accessBtn" onclick="window.handleAccess()" class="bg-white text-black px-4 sm:px-8 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl text-[9px] sm:text-[10px] font-black hover:bg-blue-600 hover:text-white transition-all uppercase tracking-widest shadow-xl active:scale-95 whitespace-nowrap">
+                <button id="accessBtn" onclick="window.handleAccess()" class="bg-white text-black px-4 sm:px-8 py-2 sm:py-3 rounded-xl sm:rounded-2xl text-[9px] sm:text-[10px] font-black hover:bg-blue-600 hover:text-white transition-all uppercase tracking-widest shadow-xl active:scale-95">
                     Acceso
                 </button>
             </div>
         </div>
     </nav>
 
-    <header class="relative min-h-[60vh] sm:min-h-[85vh] flex flex-col items-center justify-center gradient-bg px-4 text-center overflow-hidden pt-36 sm:pt-48">
+    <header class="relative min-h-[70vh] sm:min-h-[80vh] flex flex-col items-center justify-center gradient-bg px-4 text-center overflow-hidden pt-20">
         <div class="absolute top-1/4 left-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-blue-600/10 rounded-full blur-[80px] sm:blur-[120px] animate-pulse"></div>
         <div class="relative z-10 space-y-4 sm:space-y-6 w-full max-w-7xl">
-            <!-- Titulo Principal -->
-            <h1 class="main-title text-white text-glow uppercase select-none px-2">
+            <h1 class="main-title text-5xl sm:text-7xl md:text-9xl lg:text-[11rem] text-white text-glow uppercase select-none px-2">
                  BIBLIO<span class="text-blue-600">NAZ</span>
             </h1>
-            <p class="text-blue-400/60 font-black text-[8px] sm:text-sm tracking-[0.3em] sm:tracking-[0.6em] uppercase mb-6 sm:mb-12">Recursos Digitales para el Ministerio</p>
+            <p class="text-blue-400/60 font-black text-[10px] sm:text-sm tracking-[0.4em] sm:tracking-[0.6em] uppercase mb-8 sm:mb-12">Recursos Digitales para el Ministerio</p>
             
             <div class="relative max-w-2xl mx-auto w-full group px-2">
                 <div class="absolute inset-0 bg-blue-600/20 blur-3xl opacity-0 group-focus-within:opacity-100 transition-opacity"></div>
-                <input type="text" id="searchInput" placeholder="BUSCAR RECURSOS..." class="relative w-full glass py-5 sm:py-7 px-10 sm:px-14 rounded-full border-white/10 text-xs sm:text-base focus:outline-none focus:border-blue-500/50 text-center tracking-[0.1em] sm:tracking-[0.2em] transition-all uppercase font-light">
-                <i data-lucide="search" class="absolute left-6 sm:left-8 top-5 sm:top-7 w-4 h-4 sm:w-6 sm:h-6 opacity-20"></i>
+                <input type="text" id="searchInput" placeholder="BUSCAR RECURSOS..." class="relative w-full glass py-5 sm:py-7 px-10 sm:px-14 rounded-full border-white/10 text-sm sm:text-base focus:outline-none focus:border-blue-500/50 text-center tracking-[0.1em] sm:tracking-[0.2em] transition-all uppercase font-light">
+                <i data-lucide="search" class="absolute left-6 sm:left-8 top-5 sm:top-7 w-5 h-5 sm:w-6 sm:h-6 opacity-20"></i>
             </div>
         </div>
     </header>
@@ -154,42 +144,86 @@
         </div>
     </section>
 
-    <!-- Modal de Administracion -->
+    <!-- Sección de Comentarios -->
+    <section id="comentariosSection" class="max-w-7xl mx-auto px-4 sm:px-6 pb-24 border-t border-white/5 pt-16">
+        <div class="space-y-2 sm:space-y-3 mb-12">
+            <span class="text-blue-500 font-black text-[9px] sm:text-[10px] tracking-[0.4em] sm:tracking-[0.5em] uppercase block">Interacción</span>
+            <h3 class="text-3xl sm:text-5xl font-black tracking-tighter uppercase leading-none">RECOMENDACIONES Y <span class="text-white/10">COMENTARIOS</span></h3>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12">
+            <!-- Formulario de comentarios -->
+            <div class="lg:col-span-5 space-y-6">
+                <div class="glass p-6 sm:p-8 rounded-[2rem] border border-white/5 shadow-2xl">
+                    <p class="text-[9px] font-black text-blue-500 tracking-[0.2em] uppercase mb-4">Escribe tu opinión o sugerencia</p>
+                    <form id="commentForm" class="space-y-4">
+                        <input type="text" id="commentName" placeholder="TU NOMBRE / MINISTERIO" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-5 outline-none focus:border-blue-500 uppercase text-[10px] font-bold transition-all" required>
+                        <textarea id="commentText" placeholder="ESCRIBE TU MENSAJE AQUÍ..." class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-5 h-28 outline-none text-[10px] uppercase focus:border-blue-500 transition-all" required></textarea>
+                        <button type="submit" id="submitCommentBtn" class="w-full bg-blue-600 py-4 rounded-xl font-black uppercase text-[10px] tracking-[0.15em] hover:bg-blue-500 transition-all shadow-xl active:scale-95">
+                            ENVIAR COMENTARIO
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Listado de comentarios -->
+            <div class="lg:col-span-7 flex flex-col">
+                <div id="commentsList" class="space-y-4 max-h-[500px] overflow-y-auto pr-2 no-scrollbar">
+                    <div class="text-center py-12 opacity-30">
+                        <div class="loader mb-3"></div>
+                        <p class="text-[9px] font-bold tracking-widest uppercase">Cargando comentarios...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal de Administración -->
     <div id="adminModal">
         <div class="glass max-w-xl w-full p-6 sm:p-12 rounded-3xl sm:rounded-[3.5rem] border-white/10 relative mx-4 max-h-[92vh] overflow-y-auto no-scrollbar shadow-3xl">
             <button onclick="window.toggleAdminModal()" class="absolute top-6 right-6 sm:top-10 sm:right-10 text-white/20 hover:text-white transition-colors">
                 <i data-lucide="x-circle" class="w-7 h-7 sm:w-9 sm:h-9"></i>
             </button>
             <div class="text-center mb-8 sm:mb-10">
-                <h3 class="text-2xl sm:text-3xl font-black tracking-tighter uppercase mb-2">AGREGAR <span class="text-blue-500">RECURSO</span></h3>
-                <p class="text-white/30 text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.3em]">Gestion de Enlaces</p>
+                <h3 class="text-2xl sm:text-3xl font-black tracking-tighter uppercase mb-2">AÑADIR <span class="text-blue-500">RECURSO</span></h3>
+                <p class="text-white/30 text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.3em]">Gestión de Enlaces</p>
             </div>
             <form id="uploadForm" class="space-y-3 sm:space-y-4">
-                <input type="text" id="bookTitle" placeholder="TITULO" class="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-7 outline-none focus:border-blue-500 uppercase text-[10px] font-bold transition-all" required>
+                <input type="text" id="bookTitle" placeholder="TÍTULO" class="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-7 outline-none focus:border-blue-500 uppercase text-[10px] font-bold transition-all" required>
                 <select id="bookCategory" class="w-full bg-slate-900 border border-white/10 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-7 outline-none text-[10px] font-black uppercase cursor-pointer focus:border-blue-500 transition-all" required>
-                    <option value="" disabled selected>SELECCIONAR CATEGORIA</option>
-                    <option value="ADMINISTRACION">ADMINISTRACION</option>
-                    <option value="CRISTOLOGIA">CRISTOLOGIA</option>
+                    <option value="" disabled selected>SELECCIONAR CATEGORÍA</option>
+                    <option value="ADMINISTRACION">ADMINISTRACIÓN</option>
+                    <option value="ADORACION">ADORACIÓN</option>
+                    <option value="APOLOGETICA">APOLOGÉTICA</option>
+                    <option value="BIBLIA">BIBLIA</option>
+                    <option value="CRISTOLOGIA">CRISTOLOGÍA</option>
                     <option value="DISCIPULADO">DISCIPULADO</option>
-                    <option value="EDUCACION CRISTIANA">EDUCACION CRISTIANA</option>
-                    <option value="ESCATOLOGIA">ESCATOLOGIA</option>
-                    <option value="ESTUDIOS BIBLICOS">ESTUDIOS BIBLICOS</option>
+                    <option value="ECLESIOLOGIA">ECLESIOLOGÍA</option>
+                    <option value="EDUCACIÓN CRISTIANA">EDUCACIÓN CRISTIANA</option>
+                    <option value="ESCATOLOGIA">ESCATOLOGÍA</option>
+                    <option value="ESTUDIOS BÍBLICOS">ESTUDIOS BÍBLICOS</option>
                     <option value="EVANGELISMO">EVANGELISMO</option>
+                    <option value="FAMILIA">FAMILIA</option>
                     <option value="FINANZAS">FINANZAS</option>
-                    <option value="GEOGRAFIA">GEOGRAFIA</option>
+                    <option value="GEOGRAFIA">GEOGRAFÍA</option>
                     <option value="HISTORIA">HISTORIA</option>
                     <option value="LIDERAZGO">LIDERAZGO</option>
                     <option value="MANUALES">MANUALES Y REGLAMENTOS</option>
-                    <option value="NEUMOLOGIA">NEUMOLOGIA</option>
-                    <option value="PSICOLOGIA">PSICOLOGIA</option>
-                    <option value="SOCIOLOGIA">SOCIOLOGIA</option>
-                    <option value="TEOLOGIA">TEOLOGIA</option>
+                    <option value="MATRIMONIO">MATRIMONIO</option>
+                    <option value="MINISTERIO">MINISTERIO</option>
+                    <option value="MINISTERIOS">MINISTERIOS</option>
+                    <option value="NEUMOLOGIA">NEUMOLOGÍA</option>
+                    <option value="OTROS">OTROS</option>
+                    <option value="PSICOLOGIA">PSICOLOGÍA</option>
+                    <option value="SOCIOLOGIA">SOCIOLOGÍA</option>
+                    <option value="TEOLOGÍA">TEOLOGÍA</option>
                 </select>
-                <textarea id="bookDesc" placeholder="DESCRIPCION..." class="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-7 h-20 sm:h-24 outline-none text-[10px] uppercase focus:border-blue-500 transition-all" required></textarea>
+                <textarea id="bookDesc" placeholder="DESCRIPCIÓN..." class="w-full bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-7 h-20 sm:h-24 outline-none text-[10px] uppercase focus:border-blue-500 transition-all" required></textarea>
                 <div class="space-y-2 pt-4 border-t border-white/5">
                     <p class="text-[8px] font-black text-blue-500 tracking-[0.2em] uppercase">Enlaces Directos (Google Drive)</p>
                     <input type="url" id="bookUrl" placeholder="LINK PDF DRIVE (Compartido)" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-5 outline-none focus:border-blue-500 text-[10px]" required>
                     <input type="url" id="bookCoverUrl" placeholder="LINK PORTADA IMAGEN DRIVE" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-5 outline-none focus:border-blue-500 text-[10px]" required>
+                    <p class="text-[7px] text-white/20 italic uppercase">* Asegúrate de que los archivos tengan permisos para "Cualquier persona con el enlace".</p>
                 </div>
                 <button type="submit" id="submitBtn" class="w-full bg-blue-600 py-4 sm:py-6 mt-4 rounded-xl sm:rounded-2xl font-black uppercase text-[11px] sm:text-[12px] tracking-[0.2em] hover:bg-blue-500 transition-all shadow-xl">
                     GUARDAR RECURSO
@@ -198,12 +232,13 @@
         </div>
     </div>
 
-    <!-- Script de Logica y Firebase -->
+    <!-- Script de Lógica y Firebase -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, query, orderBy, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
+        // Configuración de tu proyecto Firebase
         const firebaseConfig = {
           apiKey: "AIzaSyBN0eWd2_oeuZ00xnFgXdW4deVCStAFPkc",
           authDomain: "biblionaz.firebaseapp.com",
@@ -217,7 +252,7 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        let globalData = [], isAdmin = false;
+        let globalData = [], globalComments = [], isAdmin = false;
 
         signInAnonymously(auth);
 
@@ -242,6 +277,7 @@
                 adminPanelBtn.style.display = isAdmin ? 'block' : 'none';
             }
             renderBooks(globalData);
+            renderComments(globalComments);
         };
 
         window.filter = (c) => {
@@ -249,7 +285,7 @@
         };
 
         async function performDelete(id) {
-            if (confirm("�Seguro que deseas eliminar este recurso?")) {
+            if (confirm("¿Seguro que deseas eliminar este recurso?")) {
                 try {
                     await deleteDoc(doc(db, "books", id));
                 } catch (e) {
@@ -284,13 +320,21 @@
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                const q = query(collection(db, "books"), orderBy("createdAt", "desc"));
-                onSnapshot(q, (snap) => {
+                // Escuchar Catálogo de Libros
+                const qBooks = query(collection(db, "books"), orderBy("createdAt", "desc"));
+                onSnapshot(qBooks, (snap) => {
                     globalData = snap.docs.map(d => ({ id: d.id, ...d.data() }));
                     renderFilters();
                     renderBooks(globalData);
                     const loader = document.getElementById('loadingIndicator');
                     if (loader) loader.style.display = 'none';
+                });
+
+                // Escuchar Comentarios en Tiempo Real
+                const qComments = query(collection(db, "comments"), orderBy("createdAt", "desc"));
+                onSnapshot(qComments, (snap) => {
+                    globalComments = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                    renderComments(globalComments);
                 });
             }
         });
@@ -329,7 +373,7 @@
                     </button>` : ''}
                     
                     <div class="relative h-60 sm:h-72 rounded-2xl sm:rounded-3xl overflow-hidden mb-5 sm:mb-6 bg-slate-900 shadow-inner">
-                        <img src="${b.image}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/300x450?text=SIN+PORTADA'">
+                        <img src="${b.image}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/300x450?text=CARGAR+PORTADA'">
                         <div class="absolute top-3 left-3 bg-blue-600/90 px-3 py-1.5 rounded-lg text-[7px] font-black uppercase tracking-wider">${b.category}</div>
                     </div>
                     
@@ -342,6 +386,42 @@
                     </div>
                 </div>
             `;}).join('');
+
+            if (window.lucide) window.lucide.createIcons();
+        }
+
+        function renderComments(list) {
+            const commentsContainer = document.getElementById('commentsList');
+            if (!commentsContainer) return;
+
+            if (list.length === 0) {
+                commentsContainer.innerHTML = `
+                    <div class="glass p-8 rounded-3xl border border-white/5 text-center">
+                        <p class="text-[9px] font-bold text-white/30 uppercase tracking-[0.3em]">No hay comentarios aún. ¡Sé el primero en dejar uno!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            commentsContainer.innerHTML = list.map(c => {
+                const dateStr = c.createdAt ? new Date(c.createdAt.seconds * 1000).toLocaleDateString('es-ES', {
+                    day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
+                }) : 'Hace un momento';
+
+                return `
+                    <div class="glass p-5 rounded-2xl border border-white/5 relative flex flex-col gap-2 shadow-lg transition-all">
+                        ${isAdmin ? `
+                        <button data-comment-id="${c.id}" class="delete-comment-btn absolute top-3 right-3 z-30 bg-red-600/90 text-white p-2 rounded-full hover:bg-red-700 transition-all shadow-xl active:scale-90">
+                            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                        </button>` : ''}
+                        <div class="flex justify-between items-center gap-4">
+                            <span class="text-[10px] font-black text-blue-400 tracking-wider uppercase">${c.name}</span>
+                            <span class="text-[8px] text-white/25 font-bold tracking-widest">${dateStr}</span>
+                        </div>
+                        <p class="text-[11px] sm:text-xs text-white/80 leading-relaxed font-light uppercase tracking-wide whitespace-pre-line">${c.text}</p>
+                    </div>
+                `;
+            }).join('');
 
             if (window.lucide) window.lucide.createIcons();
         }
@@ -367,6 +447,43 @@
             } finally {
                 btn.disabled = false;
                 btn.innerText = "GUARDAR RECURSO";
+            }
+        });
+
+        // Event listener para el envío de nuevos comentarios
+        document.getElementById('commentForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitCommentBtn');
+            btn.disabled = true;
+            btn.innerText = "ENVIANDO...";
+
+            try {
+                await addDoc(collection(db, "comments"), {
+                    name: document.getElementById('commentName').value.toUpperCase().trim(),
+                    text: document.getElementById('commentText').value.toUpperCase().trim(),
+                    createdAt: serverTimestamp()
+                });
+                e.target.reset();
+            } catch (err) {
+                console.error("Error al agregar comentario: ", err);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "ENVIAR COMENTARIO";
+            }
+        });
+
+        // Event listener para la moderación/eliminación de comentarios
+        document.getElementById('commentsList').addEventListener('click', async (e) => {
+            const deleteBtn = e.target.closest('.delete-comment-btn');
+            if (deleteBtn) {
+                const commentId = deleteBtn.getAttribute('data-comment-id');
+                if (confirm("¿Estás seguro de que deseas eliminar este comentario?")) {
+                    try {
+                        await deleteDoc(doc(db, "comments", commentId));
+                    } catch (err) {
+                        console.error("Error al eliminar comentario: ", err);
+                    }
+                }
             }
         });
 
